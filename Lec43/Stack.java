@@ -1,8 +1,8 @@
 package Lec43;
 
 public class Stack {
-	private int[] arr;
-	int tos;
+	protected int[] arr;
+	protected int tos;
 
 	public Stack() {
 		// TODO Auto-generated constructor stub
@@ -37,7 +37,7 @@ public class Stack {
 	}
 
 	public int pop() throws Exception {
-		if(isEmpty()) {
+		if (isEmpty()) {
 			throw new Exception("Bklol stack Empty hai");
 		}
 		int x = arr[tos];
@@ -47,7 +47,7 @@ public class Stack {
 	}
 
 	public int peek() throws Exception {
-		if(isEmpty()) {
+		if (isEmpty()) {
 			throw new Exception("Bklol stack Empty hai");
 		}
 		int x = arr[tos];
