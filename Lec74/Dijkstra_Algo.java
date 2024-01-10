@@ -42,7 +42,7 @@ public class Dijkstra_Algo {
 			@Override
 			public int compare(DijkstraPair o1, DijkstraPair o2) {
 				// TODO Auto-generated method stub
-				return o2.cost - o1.cost;
+				return o1.cost - o2.cost;
 			}
 		});
 		HashSet<Integer> visited = new HashSet<>();

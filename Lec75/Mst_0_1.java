@@ -1,24 +1,23 @@
-package Lec73;
+package Lec75;
 
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.*;
 import java.util.HashSet;
-import java.util.PriorityQueue;
+import java.util.Scanner;
 
-public class Prims_Aglo {
-	HashMap<Integer, HashMap<Integer, Integer>> map;
+public class Mst_0_1 {
 
-	public Prims_Aglo(int v) {
+	private HashMap<Integer, HashMap<Integer, Integer>> map = new HashMap<>();
+
+	public Mst_0_1(int v) {
 		// TODO Auto-generated constructor stub
-		map = new HashMap<>();
 		for (int i = 1; i <= v; i++) {
 			map.put(i, new HashMap<>());
 		}
 	}
 
-	public void AddEdge(int v1, int v2, int cost) {
-		map.get(v1).put(v2, cost);
-		map.get(v2).put(v1, cost);
+	public void AddEdge(int a, int b, int cost) {
+		map.get(a).put(b, cost);
+		map.get(b).put(a, cost);
 
 	}
 
@@ -47,7 +46,8 @@ public class Prims_Aglo {
 				return o1.cost - o2.cost;
 			}
 		});
-		pq.add(new PrimsPair(3, 3, 0));
+		int ans = 0;
+		pq.add(new PrimsPair(1, 1, 0));
 		HashSet<Integer> visited = new HashSet<>();
 		while (!pq.isEmpty()) {
 			PrimsPair rp = pq.poll();
@@ -56,25 +56,31 @@ public class Prims_Aglo {
 			}
 			visited.add(rp.e1);
 			System.out.println(rp);
-			for (int nbrs : map.get(rp.e1).keySet()) {
+			ans = ans + rp.cost;
+			for (int nbrs = 1; nbrs <= map.size(); nbrs++) {
 				if (!visited.contains(nbrs)) {
-					int cost = map.get(rp.e1).get(nbrs);
+					int cost = 0;
+					if (map.get(rp.e1).containsKey(nbrs)) {
+						cost = 1;
+					}
+
 					pq.add(new PrimsPair(nbrs, rp.e1, cost));
 				}
 			}
 		}
+		System.out.println(ans);
 	}
 
 	public static void main(String[] args) {
-		Prims_Aglo g = new Prims_Aglo(7);
-		g.AddEdge(1, 4, 6);
-		g.AddEdge(1, 2, 10);
-		g.AddEdge(2, 3, 7);
-		g.AddEdge(3, 4, 5);
-		g.AddEdge(4, 5, 1);
-		g.AddEdge(5, 6, 4);
-		g.AddEdge(7, 5, 2);
-		g.AddEdge(6, 7, 3);
-		g.Prims();
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();// vtx
+		int m = sc.nextInt();// edge
+		Mst_0_1 ms = new Mst_0_1(n);
+		for (int i = 0; i < m; i++) {
+			int a = sc.nextInt();
+			int b = sc.nextInt();
+			ms.AddEdge(a, b, 1);
+		}
+		ms.Prims();
 	}
 }
